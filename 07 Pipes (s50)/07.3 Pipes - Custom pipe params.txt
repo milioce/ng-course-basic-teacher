@@ -1,0 +1,23 @@
+app/pipes/shorten.pipe.ts
+-------------------------------------------------------------------------------
+...
+  transform(value: string, maxLength = 10): any {
+    if (value.length > maxLength) {
+      return value.substr(0, 10) + '...';
+    }
+
+    return value;
+  }
+
+
+app/server/server.component.ts
+-------------------------------------------------------------------------------
+...
+  new Server('User database MySQL master', 2, 'stable', 'large'),
+
+
+
+app/server/server.component.html
+-------------------------------------------------------------------------------
+...
+      <strong>{{ server.name | shorten:15 }}</strong> |

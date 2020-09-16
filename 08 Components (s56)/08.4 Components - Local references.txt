@@ -1,0 +1,49 @@
+servers/servers.component.html
+------------------------------------------------------------------------------
+ + Cambiamos el ngModel por una referencia local
+ + Y le pasamos el valor cuando haces el click
+
+  <div class="form-group">
+    <label for="name">Server name</label>
+    <input type="text" id="name" class="form-control" [(ngModel)]="serverName">
+  </div>
+  <button class="btn btn-primary"
+    (click)="onCreateServer()">
+    Add Server
+  </button>
+
+  <div class="form-group">
+    <label for="name">Server name</label>
+    <input #serverNameInput type="text" id="name" class="form-control">
+  </div>
+  <button class="btn btn-primary"
+    (click)="onCreateServer(serverNameInput)">
+    Add Server
+  </button>
+
+servers/servers.component.ts
+------------------------------------------------------------------------------
+ + Cambiamos el método para recibir el elemento input
+
+  onCreateServer() {
+    const server = new Server(this.serverName, this.servers.length, 'stable', 'medium');
+    this.servers.push(server);
+  }
+
+  onCreateServer(serverNameInput: HTMLInputElement) {
+    const server = new Server(serverNameInput.value, this.servers.length, 'stable', 'medium');
+    this.servers.push(server);
+  }
+
+
+Podemos pasarle el valor directamente.
+======================================
+
+  <button class="btn btn-primary" (click)="onCreateServer(serverNameInput.value)">
+    Add Server
+  </button>
+
+  onCreateServer(serverName: string) {
+    const server = new Server(serverName, this.servers.length, 'stable', 'medium');
+    this.servers.push(server);
+  }

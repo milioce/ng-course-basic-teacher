@@ -1,0 +1,29 @@
+<h3>Servers</h3>
+
+<input type="text" class="form-control" [(ngModel)]="serverName">
+
+<button
+  class="btn btn-primary"
+  (click)="onCreateServer()">
+  Add Server
+</button>
+
+<h3>Server list</h3>
+<ul>
+  <li *ngFor="let server of servers">{{ server }}</li>
+</ul>
+
+--------------------------------------------------------
+
+export class ServerComponent {
+  serverName = '';
+  servers = ['Server A', 'Server B', 'Server C', 'Server D'];
+
+  constructor() {
+  }
+
+  onCreateServer() {
+    this.servers.push(this.serverName);
+  }
+
+}

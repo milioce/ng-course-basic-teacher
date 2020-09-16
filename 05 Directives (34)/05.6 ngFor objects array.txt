@@ -1,0 +1,60 @@
+
+<div class="container">
+    <h2>Server List</h2>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let server of servers">
+      <span class="badge" [ngClass]="getStatusClass(server)">{{ server.status }}</span>
+      <span class="ml-2">{{ server.name }} | {{ server.instanceType }}</span>
+      </li>
+    </ul>
+</div>
+
+----------------------------------
+
+export class ServerComponent {
+  serverName = '';
+  servers = [
+    {
+      instanceType: 'medium',
+      name: 'Production',
+      status: 'stable',
+      started: new Date(15, 1, 2017),
+      maintenanceCost: 49.90
+    },
+    {
+      instanceType: 'large',
+      name: 'User database',
+      status: 'stable',
+      started: new Date(15, 1, 2017),
+      maintenanceCost: 25.85
+    },
+    {
+      instanceType: 'small',
+      name: 'Stage',
+      status: 'failed',
+      started: new Date(15, 1, 2017),
+      maintenanceCost: 10.00
+    },
+    {
+      instanceType: 'small',
+      name: 'Development',
+      status: 'initializing',
+      started: new Date(15, 1, 2017),
+      maintenanceCost: 10.00
+    },
+  ];
+
+  constructor() {
+  }
+
+  getStatusClass(server) {
+    const classes = {
+      'stable': 'badge-success',
+      'failed': 'badge-danger',
+      'initializing': 'badge-warning'
+    }
+
+    return classes[server.status];
+  }
+}
+

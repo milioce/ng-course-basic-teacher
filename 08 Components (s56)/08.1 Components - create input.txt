@@ -1,0 +1,52 @@
+------------------------------------------------------------------------------
+Crear nuevo componente desde Angular CLI
+
+ng generate component servers/server
+ng generate component servers/server/server --flat
+------------------------------------------------------------------------------
+
+
+servers/server/server.component.html
+  - Pasar el código del padre servers.component.html
+------------------------------------------------------------------------------
+<li class="list-group-item d-flex justify-content-between">
+  <div>
+    <span class="badge" [ngClass]="getStatusClass(server)">{{ server.status }}</span>
+    <span class="ml-2"><strong>{{ server.name }}</strong> | {{ server.instanceType }}</span>
+  </div>
+  <button class="btn btn-sm btn-primary">Change status</button>
+</li>
+
+
+servers/server/server.component.ts
+  - poner input : @Input() server: Server;
+  - pasar getStatusClass()
+------------------------------------------------------------------------------
+
+import { Component, OnInit, Input } from '@angular/core';
+import { Server } from '../server.model';
+
+@Component({
+  selector: 'app-server',
+  templateUrl: './server.component.html',
+  styleUrls: ['./server.component.css']
+})
+export class ServerComponent implements OnInit {
+  @Input() server: Server;
+
+  constructor() { }
+
+  getStatusClass(server: Server) {
+    const classes = {
+      'stable': 'badge-success',
+      'failed': 'badge-danger',
+      'initializing': 'badge-warning'
+    }
+
+    return classes[server.status];
+  }
+
+  ngOnInit(): void {
+  }
+
+}

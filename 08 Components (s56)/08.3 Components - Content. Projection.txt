@@ -1,0 +1,20 @@
+servers/servers.component.html
+------------------------------------------------------------------------------
+  + Quito el h2 y pongo la directiva <ng-content>
+
+  <div class="container">
+-   <h2>Servers</h2>
++   <ng-content></ng-content>
+    <div class="form-group">
+      <label for="name">Server name</label>
+      <input type="text" id="name" class="form-control" [(ngModel)]="serverName">
+    </div>
+
+
+app.component.html
+------------------------------------------------------------------------------
+  + Proyectamos el contenido desde el padre (h2)
+
+<app-servers>
+  <h2>Servers</h2>
+</app-servers>

@@ -1,0 +1,55 @@
+server/server.model.ts
+-------------------------------------------------------------------------------
+export class Server {
+  public name: string;
+  public id: number;
+  public status: string;
+
+  constructor(name: string, id: number, status: string) {
+    this.name = name;
+    this.id = id;
+    this.status = status;
+  }
+}
+
+server/server.model.ts => Simplificada
+-------------------------------------------------------------------------------
+export class Server {
+  constructor(public name: string, public id: number, public status: string) {
+  }
+}
+
+server/server.component.ts
+-------------------------------------------------------------------------------
+
+import { Server } from './server.model';
+...
+
+export class ServerComponent {
+  serverName = '';
+  servers: Server[] = [
+    new Server('Production', 1, 'stable'),
+    new Server('User database', 2, 'stable'),
+    new Server('Stage', 3, 'failed'),
+    new Server('Development', 4, 'initializing')
+  ];
+
+  constructor() {
+  }
+
+  onCreateServer() {
+    const server = new Server(this.serverName, this.servers.length, 'stable');
+    this.servers.push(server);
+  }
+
+  getStatusClass(server: Server) {
+    const classes = {
+      'stable': 'badge-success',
+      'failed': 'badge-danger',
+      'initializing': 'badge-warning'
+    }
+
+    return classes[server.status];
+  }
+
+}

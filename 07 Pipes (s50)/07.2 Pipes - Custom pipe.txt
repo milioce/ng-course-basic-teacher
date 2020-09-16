@@ -1,0 +1,33 @@
+app/pipes/shorten.pipe.ts
+-------------------------------------------------------------------------------
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'shorten'
+})
+
+export class ShortenPipe implements PipeTransform {
+  transform(value: string): any {
+    if (value.length > 0) {
+      return value.substr(0, 10) + '...';
+    }
+
+    return value;
+  }
+}
+
+
+app/app.module.ts
+-------------------------------------------------------------------------------
+import { ShortenPipe } from './pipes/shorten.pipe';
+
+  declarations: [
+    ...
+    ShortenPipe
+  ],
+
+
+app/server/server.component.html
+-------------------------------------------------------------------------------
+...
+      <strong>{{ server.name | shorten }}</strong> |

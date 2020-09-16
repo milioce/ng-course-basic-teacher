@@ -1,0 +1,42 @@
+servers/server/server.component.ts
+------------------------------------------------------------------------------
+  + Crear evento custom
+  + Crear método para lanzar el evento
+
+...
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+  @Input() server: Server;
+  @Output() statusChanged = new EventEmitter<Server>();
+
+...
+
+  onChangeStatus() {
+    this.serverChanged.emit(this.server);
+  }
+
+
+servers/server/server.component.html
+------------------------------------------------------------------------------
+  + Capturar el evento click
+
+<button class="btn btn-sm btn-primary" (click)="onChangeStatus()">Change status</button>
+
+
+servers/servers.component.html
+------------------------------------------------------------------------------
+  + Capturar el evento custom (output)
+
+
+          <app-server *ngFor="let server of servers"
+            [server]="server"
+            (serverChanged)="changeServerStatus($event)">
+          </app-server>
+
+
+servers/servers.component.ts
+------------------------------------------------------------------------------
+
+  changeServerStatus(server: Server) {
+    this.servers[server.id - 1].status = server.status === 'stable' ? 'failed' : 'stable';
+  }

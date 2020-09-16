@@ -1,0 +1,72 @@
+server/server.component.html
+-------------------------------------------------------------------------------
+<div class="container">
+  <div class="form-group">
+    <label for="name">Server name</label>
+    <input type="text" id="name" class="form-control" [(ngModel)]="serverName">
+  </div>
+  <button
+    class="btn btn-primary"
+    (click)="onCreateServer()">
+    Add Server
+  </button>
+
+  <h2 class="mt-4">Server List</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let server of servers">
+    <span class="badge" [ngClass]="getStatusClass(server)">{{ server.status }}</span>
+    <span class="ml-2"><strong>{{ server.name }}</strong></span>
+    </li>
+  </ul>
+</div>
+
+server/server.component.ts
+-------------------------------------------------------------------------------
+export class ServerComponent {
+  serverName = '';
+  servers = [
+    {
+      id: 1,
+      name: 'Production',
+      status: 'stable',
+    },
+    {
+      id: 2,
+      name: 'User database',
+      status: 'stable',
+    },
+    {
+      id: 3,
+      name: 'Stage',
+      status: 'failed',
+    },
+    {
+      id: 4,
+      name: 'Development',
+      status: 'initializing',
+    },
+  ];
+
+  constructor() {
+  }
+
+  onCreateServer() {
+    const server = {
+      id: this.servers.length,
+      name: this.serverName,
+      status: 'stable'
+    };
+    this.servers.push(server);
+  }
+
+  getStatusClass(server) {
+    const classes = {
+      'stable': 'badge-success',
+      'failed': 'badge-danger',
+      'initializing': 'badge-warning'
+    }
+
+    return classes[server.status];
+  }
+
+}

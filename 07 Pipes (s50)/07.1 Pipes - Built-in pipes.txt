@@ -1,0 +1,13 @@
+server/server.component.html
+-------------------------------------------------------------------------------
+  ...
+
+    <span class="ml-2">
+      <strong>{{ server.name }}</strong> |
+        {{ server.instanceType | uppercase }} |
+        {{ server.started | date: 'fullDate' }}
+    </span>
+
+
+        {{ server.started | date: 'fullDate' | uppercase }}
+        {{ server.started | date: 'yyyy-MM-dd' }}
